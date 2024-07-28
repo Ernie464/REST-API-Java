@@ -1,8 +1,20 @@
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+//импортируем нужные нам библиотеки
 import org.junit.jupiter.api.Test;
+
+
 
 public class HelloWorldTest {
     @Test
     public void testHelloWorld(){
-       System.out.println("Hello world!");
+       Response repsonse = RestAssured
+               .get("https://playground.learnqa.ru/api/hello")
+               //делаем гет запрос на адрес нашего API
+               .andReturn();
+       //верни нам результат запроса
+        //В переменной reponse будет храниться информация об ответе на запрос
+       repsonse.prettyPrint();
+       //печатаем текст ответа в удобном формате спец командой
     }
 }
