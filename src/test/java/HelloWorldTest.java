@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 public class HelloWorldTest {
     @Test
     public void testHelloWorld(){
-       Response repsonse = RestAssured
+       Response response = RestAssured
                .get("https://playground.learnqa.ru/api/hello")
                //делаем гет запрос на адрес нашего API
                .andReturn();
        //верни нам результат запроса
         //В переменной reponse будет храниться информация об ответе на запрос
-       repsonse.prettyPrint();
+       response.prettyPrint();
        //печатаем текст ответа в удобном формате спец командой
     }
 }
