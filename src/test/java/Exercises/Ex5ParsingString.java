@@ -14,7 +14,7 @@ public class Ex5ParsingString {
                 .jsonPath();
         response.prettyPrint();
 
-        String answer = response.get("message");
+        String answer = response.get("messages.message[1]");
 
         System.out.println(answer);
     }
