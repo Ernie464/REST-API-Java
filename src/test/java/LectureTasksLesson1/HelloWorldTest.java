@@ -1,23 +1,21 @@
+package LectureTasksLesson1;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+//импортируем нужные нам библиотеки
 import org.junit.jupiter.api.Test;
 //импортируем атрибут тест, который имеется в библиотеке jUnit
 
 
-public class RestAssuredTest {
-    //создаем класс HelloWorldTest
+public class HelloWorldTest {
+    //создаем класс LectureTasksLesson1.HelloWorldTest
     @Test
             //тег ставится, чтобы обозначить следующий за ним код как тест
-    public void testRestAssured(){
+    public void testHelloWorld(){
        Response response = RestAssured
-               //используем переменную restAssured, которую импортировали на первой строке
-               //она имеет внутри себя те функции которые могут понадобится при составлении вызовов
-                .get("https://playground.learnqa.ru/api/hello")
-               //Параметр в паттерне builder
-               //через точку вызываем эти методы
+               .get("https://playground.learnqa.ru/api/hello")
                //делаем гет запрос на адрес нашего API
                .andReturn();
-                //Функция в паттерне builder
        //верни нам результат запроса
         //В переменной response будет храниться информация об ответе на запрос
        response.prettyPrint();

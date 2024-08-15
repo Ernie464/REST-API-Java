@@ -1,20 +1,16 @@
+package LectureTasksLesson2;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
 
-
-public class RestAssuredTestTypeCheckPostV4 {
+public class RestAssuredTestTypeCheckPostV2 {
     @Test
     public void testRestAssured(){
-        Map<String, Object> body = new HashMap<>();
-        body.put("param1","value1");
-        body.put("param2","value2");
         Response response =  RestAssured
                 .given()
-                .body(body)
+                .body("param1=value1&param2=value2")
                 .post("https://playground.learnqa.ru/api/check_type")
                 .andReturn();
         response.print();

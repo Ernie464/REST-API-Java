@@ -1,3 +1,5 @@
+package LectureTasksLesson2;
+
 import io.restassured.RestAssured;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -7,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class RestAssuredTestTypeCheckHeaders303 {
+public class RestAssuredTestTypeCheckHeaders {
     @Test
     public void testRestAssured(){
         Map<String, String> headers = new HashMap<>();
@@ -16,16 +18,18 @@ public class RestAssuredTestTypeCheckHeaders303 {
 
         Response response =  RestAssured
                 .given()
-                .redirects()
-                .follow(false)
-                .get("https://playground.learnqa.ru/api/get_303")
+                .headers(headers)
+                .when()
+                .get("https://playground.learnqa.ru/api/show_all_headers")
                 .andReturn();
         response.prettyPrint();
         //ответ придет в json формате, которые нам выведет prettyPrint
         //в ответе содержатся те заголовки, которые мы отправили с нашим запросом
 
-        String locationHeader = response.getHeader("Location");
-        System.out.println(locationHeader);
-        //в ответе только 1 header - Location
+        Headers repsonseHeaders = response.getHeaders();
+        System.out.println(repsonseHeaders);
+
+        //в ответе мы получим заголовки, которые придут с ответом
+
     }
 }
