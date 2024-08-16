@@ -13,26 +13,23 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+public void setMatritsa() {
+
+    Map<String, List<String>> AgentsHash = new HashMap<String, List<String>>();
+    AgentsHash.put("Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",{"Mobile","No","Android"});
+    //   AgentsHash.put("Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1", ["Mobile","Chrome","iOS"]);
+    //   AgentsHash.put("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", ["Googlebot","Unknown", "Unknown"]);
+    //   AgentsHash.put("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0", ["Web", "Chrome", "No"]);
+    //   AgentsHash.put("Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",["Web", "Chrome", "No"]);
+}
 
 public class Ex13UserAgent {
-    Map<String, String> matritsa = new HashMap<>();
+    @ParameterizedTest
+    @ValueSource(strings = {"Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30","Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)","abcdefghijklm15","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0","Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"})
 
-//    @ParameterizedTest
 
-    @Test
-
-//    @ValueSource(strings = {"Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30","Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)","abcdefghijklm15","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0","Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"})
-
-    public void AgentExtractor(){
-//    public void agentExtractor(String agentString){
-        Map<String, String[]>matritsa = new HashMap<>();
-        matritsa.put("Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30", ["Mobile","No","Android"]);
-        matritsa.put("Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1", ["Mobile","Chrome","iOS"]);
-        matritsa.put("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", ["Googlebot","Unknown", "Unknown"]);
-        matritsa.put("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0", ["Web", "Chrome", "No"]);
-        matritsa.put("Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",["Web", "Chrome", "No"]);
-
-        String agentString = "Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
+//    public void AgentExtractor(){
+    public void agentExtractor(String agentString){
         Map<String, String> headers = new HashMap<>();
         headers.put("user-agent",agentString);
         JsonPath respAgent = RestAssured
@@ -42,7 +39,7 @@ public class Ex13UserAgent {
             .jsonPath();
         respAgent.prettyPrint();
 
-        String[] agentArr = matritsa.get(agentString);
+        String[] agentArr = AgentsHash.get(agentString);
 
         String plat = respAgent.getString("platform");
         assertEquals(agentArr[0], plat,"Wrong platform");
