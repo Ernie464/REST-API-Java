@@ -47,8 +47,8 @@ public class Ex13UserAgent {
         Map<String, String> values03 = agentsHash.get(agentString);
         String deviHash = values03.get("device");
 
-        assertEquals(platHash, plat,"Wrong device");
-        assertEquals(browsHash, brows,"Wrong device");
+        assertEquals(platHash, plat,"Wrong platform");
+        assertEquals(browsHash, brows,"Wrong browser");
         assertEquals(deviHash, devi,"Wrong device");
 
     }
