@@ -2,33 +2,30 @@ package Exercises;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public void setMatritsa() {
-
-    Map<String, List<String>> AgentsHash = new HashMap<String, List<String>>();
-    AgentsHash.put("Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",{"Mobile","No","Android"});
-    //   AgentsHash.put("Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1", ["Mobile","Chrome","iOS"]);
-    //   AgentsHash.put("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", ["Googlebot","Unknown", "Unknown"]);
-    //   AgentsHash.put("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0", ["Web", "Chrome", "No"]);
-    //   AgentsHash.put("Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",["Web", "Chrome", "No"]);
-}
 
 public class Ex13UserAgent {
+    private static final Map<String, Map<String, String>> agentsHash = Map.of(
+            "Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+            Map.of("platform", "Mobile", "browser", "No", "device", "Android"),
+            "Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1",
+            Map.of("platform", "Mobile", "browser", "Chrome", "device", "iOS"),
+            "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+            Map.of("platform", "Googlebot", "browser", "Unknown", "device", "Unknown"),
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0",
+            Map.of("platform", "Web", "browser", "Chrome", "device", "No"),
+            "Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
+            Map.of("platform", "Mobile", "browser", "No", "device", "iPhone"));
+
     @ParameterizedTest
     @ValueSource(strings = {"Mozilla/5.0 (Linux; U; Android 4.0.2; en-us; Galaxy Nexus Build/ICL53F) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30","Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)","abcdefghijklm15","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36 Edg/91.0.100.0","Mozilla/5.0 (iPad; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"})
-
-
-//    public void AgentExtractor(){
     public void agentExtractor(String agentString){
         Map<String, String> headers = new HashMap<>();
         headers.put("user-agent",agentString);
@@ -39,16 +36,20 @@ public class Ex13UserAgent {
             .jsonPath();
         respAgent.prettyPrint();
 
-        String[] agentArr = AgentsHash.get(agentString);
-
         String plat = respAgent.getString("platform");
-        assertEquals(agentArr[0], plat,"Wrong platform");
         String brows = respAgent.getString("browser");
-        assertEquals(agentArr[1], brows,"Browser usage check failed");
         String devi = respAgent.getString("device");
-        assertEquals(agentArr[2], devi,"Wrong device");
 
+        Map<String, String> values01 = agentsHash.get(agentString);
+        String platHash = values01.get("platform");
+        Map<String, String> values02 = agentsHash.get(agentString);
+        String browsHash = values02.get("browser");
+        Map<String, String> values03 = agentsHash.get(agentString);
+        String deviHash = values03.get("device");
 
+        assertEquals(platHash, plat,"Wrong device");
+        assertEquals(browsHash, brows,"Wrong device");
+        assertEquals(deviHash, devi,"Wrong device");
 
     }
 
