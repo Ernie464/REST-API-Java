@@ -1,7 +1,6 @@
 package tests;
 
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lib.BaseTestCase;
@@ -22,8 +21,6 @@ import lib.ApiCoreRequests;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // в коде достаточно много повторений
 // как правило эти повторы убираются, за счет вынесения какой-либо логики во вспомогательные функции, которые используются в

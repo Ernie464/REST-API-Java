@@ -93,7 +93,7 @@ public class UserAuthTestNeg {
         Headers headers = responseGetAuth.getHeaders();
         // копирнули запрос из которого вытаскиваем куки и хедеры
 
-        // теперь создаем новый тип сущности RequestSpecification - специальный классб объектом которого будет наша переменная spec
+        // теперь создаем новый тип сущности  RequestSpecification - специальный классб объектом которого будет наша переменная spec
         // c помощью этого механизма мы сможем выполнять нужный нам запрос объявляя его по частям
 
         RequestSpecification spec = RestAssured.given();

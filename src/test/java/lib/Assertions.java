@@ -30,9 +30,6 @@ public class Assertions {
 
 
 
-
-
-
     public static void assertResponseTextEquals(Response Response, String expectedAnswer){
         //метод для проверки того что текст ответа сервера равен ожидаемому, см. UserRegisterTest
         assertEquals(

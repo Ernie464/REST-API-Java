@@ -12,6 +12,20 @@ public class DataGenerator {
 // уникальное число добавляем в наш адрес генерируемой электронной почты перед доменом
     }
 
+    public static String getRandomFirstName(int length){
+        String firstName = "";
+        for (int i = 0; i <= length; ++i) {
+            firstName += 'x';
+        }
+        return firstName;
+    }
+
+    public static String getNoAtEmail(){
+        // создаем имейл без знака @
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+        return "learnqa" + timestamp + "example.com";
+    }
+
     public static Map<String,String> getRegistrationData(){
         Map<String, String> data = new HashMap<>();
         data.put("email",DataGenerator.getRandomEmail());
@@ -44,7 +58,50 @@ public class DataGenerator {
         return userData;
     }
 
+    public static Map<String,String> getNoEmailRegistrationData(){
+        Map<String, String> data = new HashMap<>();
+        data.put("password", "123");
+        data.put("username","learnqa");
+        data.put("firstName","learnqa");
+        data.put("lastName","learnqa");
 
+        return data;
+    }
+    public static Map<String,String> getNoPasswordRegistrationData(){
+        Map<String, String> data = new HashMap<>();
+        data.put("email",DataGenerator.getRandomEmail());
+        data.put("username","learnqa");
+        data.put("firstName","learnqa");
+        data.put("lastName","learnqa");
+
+        return data;
+    }
+    public static Map<String,String> getNoUsernameRegistrationData(){
+        Map<String, String> data = new HashMap<>();
+        data.put("email",DataGenerator.getRandomEmail());
+        data.put("password", "123");
+        data.put("firstName","learnqa");
+        data.put("lastName","learnqa");
+
+        return data;
+    }
+    public static Map<String,String> getNoFirstnameRegistrationData(){
+        Map<String, String> data = new HashMap<>();
+        data.put("email",DataGenerator.getRandomEmail());
+        data.put("password", "123");
+        data.put("username","learnqa");
+        data.put("lastName","learnqa");
+
+        return data;
+    }
+    public static Map<String,String> getNoLastnameRegistrationData(){
+        Map<String, String> data = new HashMap<>();
+        data.put("email",DataGenerator.getRandomEmail());
+        data.put("password", "123");
+        data.put("username","learnqa");
+        data.put("firstName","learnqa");
+        return data;
+    }
 
 
 
