@@ -1,15 +1,19 @@
 package tests;
 
+import io.qameta.allure.Description;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.Assertions;
+import lib.ApiCoreRequests;
 import lib.BaseTestCase;
+import lib.DataGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserGetTest extends BaseTestCase {
+    private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
     @Test
     public void testGetUserDataNotAuth(){
         //тест на просмотр деталей пользователя по id
@@ -61,6 +65,39 @@ public class UserGetTest extends BaseTestCase {
 
         String[] expectedFields = {"username","firstName", "lastName", "email"};
         Assertions.assertJsonHasFields(responseUserData, expectedFields);
+
+
+    }
+    @Test
+    @Description("Ex16 Test that attempts to login as user#1 and get the data of user#2")
+    public void testGetUserDetailsAuthOtherUser(){
+        String email = DataGenerator.getRandomEmail();
+        Map<String, String> userData = DataGenerator.getRegistrationData();
+
+        Response responseCreateUser = apiCoreRequests
+                .makePostRequest("https://playground.learnqa.ru/api/user/",userData);
+
+        Map<String, String> LoginData = new HashMap<>();
+        LoginData.put("email",userData.get("email"));
+        LoginData.put("password", "123");
+
+        Response responseAuthNewUser = apiCoreRequests
+                .makePostRequest("https://playground.learnqa.ru/api/user/login",LoginData);
+        String header = this.getHeader(responseAuthNewUser,"x-csrf-token");
+        String cookie = this.getCookie(responseAuthNewUser,"auth_sid");
+
+        Response responseGetAuth = apiCoreRequests
+                .makeGetRequest("https://playground.learnqa.ru/api/user/2",header,cookie);
+
+        String[] expectedFields = {"username"};
+        Assertions.assertJsonHasFields(responseGetAuth, expectedFields);
+
+
+
+
+
+
+
 
 
     }
