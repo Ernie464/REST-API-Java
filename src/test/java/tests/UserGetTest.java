@@ -71,7 +71,6 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("Ex16 Test that attempts to login as user#1 and get the data of user#2")
     public void testGetUserDetailsAuthOtherUser(){
-        String email = DataGenerator.getRandomEmail();
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateUser = apiCoreRequests
