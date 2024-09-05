@@ -21,7 +21,7 @@ public class UserGetTest extends BaseTestCase {
         //если мы присылаем не все - только логин
 
         Response responseUserData = RestAssured
-                .get("https://playground.learnqa.ru/api/user/2")
+                .get("https://playground.learnqa.ru/api_dev/user/2")
                 .andReturn();
 
 //        System.out.println(responseUserData.asString());
@@ -44,7 +44,7 @@ public class UserGetTest extends BaseTestCase {
         Response responseGetAuth = RestAssured
                 .given()
                 .body(authData)
-                .post("https://playground.learnqa.ru/api/user/login")
+                .post("https://playground.learnqa.ru/api_dev/user/login")
                 .andReturn();
 
         String header = this.getHeader(responseGetAuth,"x-csrf-token");
@@ -54,7 +54,7 @@ public class UserGetTest extends BaseTestCase {
                 .given()
                 .header("x-csrf-token", header)
                 .cookie("auth_sid", cookie)
-                .get("https://playground.learnqa.ru/api/user/2")
+                .get("https://playground.learnqa.ru/api_dev/user/2")
                 .andReturn();
 //        Assertions.assertJsonHasField(responseUserData,"username");
 //        Assertions.assertJsonHasField(responseUserData,"firstName");
@@ -74,19 +74,19 @@ public class UserGetTest extends BaseTestCase {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         Response responseCreateUser = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/",userData);
+                .makePostRequest("https://playground.learnqa.ru/api_dev/user/",userData);
 
         Map<String, String> LoginData = new HashMap<>();
         LoginData.put("email",userData.get("email"));
         LoginData.put("password", "123");
 
         Response responseAuthNewUser = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login",LoginData);
+                .makePostRequest("https://playground.learnqa.ru/api_dev/user/login",LoginData);
         String header = this.getHeader(responseAuthNewUser,"x-csrf-token");
         String cookie = this.getCookie(responseAuthNewUser,"auth_sid");
 
         Response responseGetAuth = apiCoreRequests
-                .makeGetRequest("https://playground.learnqa.ru/api/user/2",header,cookie);
+                .makeGetRequest("https://playground.learnqa.ru/api_dev/user/2",header,cookie);
 
         String[] expectedFields = {"username"};
         Assertions.assertJsonHasFields(responseGetAuth, expectedFields);

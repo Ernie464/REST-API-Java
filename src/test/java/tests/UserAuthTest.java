@@ -51,14 +51,14 @@ public class UserAuthTest extends BaseTestCase {
         authData.put("password", "1234");
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequest("https://playground.learnqa.ru/api_dev/user/login", authData);
 
 
  /* Первоначальный вариант ниже
         Response responseGetAuth = RestAssured
                 .given()
                 .body(authData)
-                .post("https://playground.learnqa.ru/api/user/login")
+                .post("https://playground.learnqa.ru/api_dev/user/login")
                 .andReturn();
 */
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
@@ -81,7 +81,7 @@ public class UserAuthTest extends BaseTestCase {
 
         Response responseCheckAuth = apiCoreRequests
                 .makeGetRequest(
-                        "https://playground.learnqa.ru/api/user/auth",
+                        "https://playground.learnqa.ru/api_dev/user/auth",
                         this.header,
                         this.cookie
                 );
@@ -91,7 +91,7 @@ public class UserAuthTest extends BaseTestCase {
                 .given()
                 .header("x-csrf-token", this.header)
                 .cookie("auth_sid", this.cookie )
-                .get("https://playground.learnqa.ru/api/user/auth")
+                .get("https://playground.learnqa.ru/api_dev/user/auth")
                 .andReturn();
 
  */
@@ -118,17 +118,17 @@ public class UserAuthTest extends BaseTestCase {
     @ValueSource(strings = {"cookie", "headers"})
     public void testAuthUserNeg(String condition){
         RequestSpecification spec = RestAssured.given();
-        spec.baseUri("https://playground.learnqa.ru/api/user/auth");
+        spec.baseUri("https://playground.learnqa.ru/api_dev/user/auth");
 
         if (condition.equals("cookie")){
             Response responseForCheck = apiCoreRequests.makeGetRequestWithCookie(
-                    "https://playground.learnqa.ru/api/user/auth",
+                    "https://playground.learnqa.ru/api_dev/user/auth",
                     this.cookie
             );
             Assertions.assertJsonByName(responseForCheck, "user_id", 0);
         }else if(condition.equals("headers")){
             Response responseForCheck = apiCoreRequests.makeGetRequestWithToken(
-                    "https://playground.learnqa.ru/api/user/auth",
+                    "https://playground.learnqa.ru/api_dev/user/auth",
                     this.header
             );
             Assertions.assertJsonByName(responseForCheck, "user_id", 0);
