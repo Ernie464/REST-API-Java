@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: tests.UserGetTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.798 s <<< FAILURE! - in tests.UserGetTest
+testGetUserDetailsAuthSameUser  Time elapsed: 0.108 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Response doesn't have a header with name x-csrf-token ==> expected: <true> but was: <false>
+	at tests.UserGetTest.testGetUserDetailsAuthSameUser(UserGetTest.java:46)
+
